@@ -8,8 +8,17 @@ class Path
     self.path = init_path unless init_path.nil?
   end
   def path=(value)
-    @current_path += value if value  
+    return unless value 
+    if value[0] == "/"
+      @current_path = value[1..-1]    
+    else
+      @current_path += value  
+    end
     @current_path = Pathname.new(@current_path).cleanpath.to_s
+    if @current_path == "."
+      @current_path = ""
+      return 
+    end
     @current_path += "/" unless @current_path[-1] == "/"
   end
   def path
@@ -74,6 +83,15 @@ class Cd
   end
 end
 
+class Presign
+  def initialize(path_obj)
+    @path = path_obj 
+  end
+  def run(args)
+    system("aws s3 presign --expires-in 604800 s3://#{@path.path}#{args[1]}")
+  end
+end
+
 class Pwd
   def initialize(path_obj)
     @path = path_obj 
@@ -97,6 +115,7 @@ commands["less"] = Less.new(path)
 commands["get"] = Get.new(path)
 commands["put"] = Put.new(path)
 commands["rm"] = Rm.new(path)
+commands["presign"] = Presign.new(path)
 commands["quit"] = Quit.new 
 commands["exit"] = Quit.new 
 
@@ -110,5 +129,4 @@ loop do
     commands[args.first].run(args)
   end
 end
-
 
