@@ -1,6 +1,6 @@
 # is3 interactive s3 client
 
-## What's this
+## What's this
 
 is3.rb is aws command wrapper.
 
