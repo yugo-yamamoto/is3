@@ -1,11 +1,15 @@
 # is3 interactive s3 client
 
+## What's this
+
+is3.rb is aws command wrapper.
+
 ## requirements
 
-- aws cli 
+- aws cli
 - ruby 2.0.0 later
 
-## how to use 
+## how to use
 
 ### login
 
