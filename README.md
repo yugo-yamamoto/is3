@@ -2,7 +2,7 @@
 
 ## What's this
 
-is3.rb is aws command wrapper.
+is3.rb is aws command wrapper.
 
 ## requirements
 
